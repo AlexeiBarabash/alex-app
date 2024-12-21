@@ -51,7 +51,7 @@ ingress:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/rewrite-target: "/"
   hosts:
-    - host: 98.64.41.189
+    - host: 98.64.41.189 # This is gonna be ommited coz it's not a valid domain and i deleted it from the ingress yaml
       paths:
         - path: /alex
           pathType: ImplementationSpecific
