@@ -51,7 +51,7 @@ ingress:
   annotations:
     kubernetes.io/ingress.class: nginx
   hosts:
-    - host: chart-example.local
+    - host: 98.64.41.189
       paths:
         - path: /alex
           pathType: ImplementationSpecific

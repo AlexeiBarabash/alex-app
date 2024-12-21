@@ -1,29 +1,29 @@
 {{- if .Values.autoscaling.enabled }}
-  apiVersion: keda.sh/v1alpha1
-  kind: ScaledObject
-  metadata:
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: {{ include "alex-app.fullname" . }}
+  labels:
+    {{- include "alex-app.labels" . | nindent 4 }}
+spec:
+  scaleTargetRef:
     name: {{ include "alex-app.fullname" . }}
-    labels:
-      {{- include "alex-app.labels" . | nindent 4 }}
-  spec:
-    scaleTargetRef:
-      name: {{ include "alex-app.fullname" . }}
-    minReplicaCount: {{ .Values.autoscaling.minReplicaCount }}
-    maxReplicaCount: {{ .Values.autoscaling.maxReplicaCount }}
-    triggers:
-      - type: cpu
-        metadata:
-          type: Utilization
-          value: "{{ .Values.autoscaling.cpuUtilization }}"
-      - type: memory
-        metadata:
-          type: Utilization
-          value: "{{ .Values.autoscaling.memoryUtilization }}"
-      # Time-based trigger
-      - type: cron
-        metadata:
-          start: "{{ .Values.autoscaling.start }}"
-          end: "{{ .Values.autoscaling.end }}"
-          timezone: "{{ .Values.autoscaling.timezone }}"
-          desiredReplicas: "{{ .Values.autoscaling.scheduledReplicas }}"
+  minReplicaCount: {{ .Values.autoscaling.minReplicaCount }}
+  maxReplicaCount: {{ .Values.autoscaling.maxReplicaCount }}
+  triggers:
+    - type: cpu
+      metadata:
+        type: Utilization
+        value: "{{ .Values.autoscaling.cpuUtilization }}"
+    - type: memory
+      metadata:
+        type: Utilization
+        value: "{{ .Values.autoscaling.memoryUtilization }}"
+    # Time-based trigger
+    - type: cron
+      metadata:
+        start: "{{ .Values.autoscaling.start }}"
+        end: "{{ .Values.autoscaling.end }}"
+        timezone: "{{ .Values.autoscaling.timezone }}"
+        desiredReplicas: "{{ .Values.autoscaling.scheduledReplicas }}"
 {{- end }}
